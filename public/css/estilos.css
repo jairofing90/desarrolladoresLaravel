@@ -1,0 +1,16 @@
+.footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.logo {
+    width: 2rem;
+}
+
+.titulo-principal{
+    text-align: center;
+    font-size: 3rem;
+    color: rgb(144, 144, 144);
+    margin-bottom: auto;
+}
