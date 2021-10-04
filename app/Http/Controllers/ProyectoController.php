@@ -12,8 +12,16 @@ class ProyectoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if($request)
+        {
+            $query = $request->buscar;
+            $proyectos = Proyecto::where('nombre','LIKE','%'.$query.'%')
+                                    ->orderBy('nombre','asc')
+                                    ->get();
+            return view('proyectos.index',compact('proyectos','query'));
+        }
         //Consulta de todos los proyectos ordenados por nombre ascendente
         $proyectos = Proyecto::orderBy('nombre', 'asc')->get();
         //enviar a la vista

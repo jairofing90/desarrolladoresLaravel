@@ -10,6 +10,13 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>    
     @endif
+
+    @if ($query)
+        <div class="alert alert-primary"> 
+            <p> Los resultados de busqueda <strong>{{ $query }}</strong></p>
+        </div>
+    @endif
+    
         <a href="{{ route('desarrolladores.create') }}" class="btn btn-primary my-3 float-end">Crear Desarrollador</a>
         <table class="table table-hover">
             <thead>

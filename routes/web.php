@@ -6,7 +6,7 @@ use App\Http\Controllers\DesarrolladorController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('inicio');
 
 //Route::get('/proyectos', [ProyectoController::class,'index'])->name('proyectos');
 
