@@ -27,12 +27,12 @@
                         <td>
                             <a href="{{ route('desarrolladores.show', $desarrollador->id) }}" class="btn btn-info">Ver detalles</a>
                             <a href="{{ route('desarrolladores.edit', $desarrollador->id) }}" class="btn btn-warning">Editar</a>
-                            <form action="{{ route('desarrolladores.destroy', $desarrollador->id) }}" class="d-inline-flex">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger" 
-                            onclick="return confirm('¿Confirma la eliminación del Desarrollador{{ $desarrollador->nombre }}?')">
-                                Eliminar
+                            <form action="{{ route('desarrolladores.destroy', $desarrollador->id) }}" class="d-inline-flex" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger" 
+                                onclick="return confirm('¿Confirma la eliminación del Desarrollador {{ $desarrollador->nombre }}?')">
+                                    Eliminar
                             </button>
                             </form>
                         </td>

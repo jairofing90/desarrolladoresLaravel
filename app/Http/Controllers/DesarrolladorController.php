@@ -61,9 +61,15 @@ class DesarrolladorController extends Controller
      * @param  \App\Models\Desarrollador  $desarrollador
      * @return \Illuminate\Http\Response
      */
-    public function show(Desarrollador $desarrollador)
+    public function show( $id)
     {
         //
+        $desarrollador = Desarrollador::join('proyectos', 'desarrolladores.proyectoId', '=', 'proyectos.id')
+                                        ->select('desarrolladores.*','proyectos.nombre as nombreProyecto')
+                                        ->where('desarrolladores.id','=',$id)
+                                        ->first();
+                                        //echo $desarrollador;
+       return view('desarrolladores.view', compact('desarrollador'));
     }
 
     /**
@@ -72,9 +78,12 @@ class DesarrolladorController extends Controller
      * @param  \App\Models\Desarrollador  $desarrollador
      * @return \Illuminate\Http\Response
      */
-    public function edit(Desarrollador $desarrollador)
+    public function edit($id)
     {
         //
+        $desarrollador = Desarrollador::findOrFail($id);
+        $proyectos = Proyecto::orderBy('nombre','asc')->get();
+        return view('desarrolladores.edit', compact('desarrollador','proyectos'));
     }
 
     /**
@@ -84,9 +93,20 @@ class DesarrolladorController extends Controller
      * @param  \App\Models\Desarrollador  $desarrollador
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Desarrollador $desarrollador)
+    public function update(Request $request,  $id)
     {
-        //
+        //Llegue todos los datos que se necesitan para modificar datos del desarrollador
+        $request->validate([
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'direccion' => 'required',
+            'telefono' => 'required',
+            'proyectoId' => 'required'
+        ]);
+
+        $desarrollador = Desarrollador::findOrFail($id);
+        $desarrollador->update($request->all());
+        return redirect()->route('desarrolladores.index')->with('exito','Se han modificado los datos del desarrollador exitosamente');
     }
 
     /**
@@ -95,8 +115,11 @@ class DesarrolladorController extends Controller
      * @param  \App\Models\Desarrollador  $desarrollador
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Desarrollador $desarrollador)
+    public function destroy( $id)
     {
         //
+        $desarrollador = Desarrollador::findOrFail($id);
+        $desarrollador->delete();
+        return redirect()->route('desarrolladores.index')->with('exito','Se han eliminado el desarrollador exitosamente');
     }
 }
